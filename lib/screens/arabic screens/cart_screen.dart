@@ -9,7 +9,7 @@ class CartScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shopping Cart'),
+        title: const Text('Shopping Cart'),
       ),
       body: cartProvider.cart.isEmpty
           ? Center(
@@ -17,7 +17,7 @@ class CartScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset('assets/empty_cart_image.png'),
-                  Text('Your cart is empty'),
+                  const Text('Your cart is empty'),
                 ],
               ),
             )
@@ -32,7 +32,7 @@ class CartScreen extends StatelessWidget {
                     onPressed: () {
                       cartProvider.removeFromCart(cartProduct);
                     },
-                    child: Text('Remove'),
+                    child: const Text('Remove'),
                   ),
                 );
               },
