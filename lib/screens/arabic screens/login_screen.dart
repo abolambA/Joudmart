@@ -1,75 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:joudmart/screens/arabic screens/register_screen.dart';
+import 'package:joudmart/screens/arabic%20screens/intro_screen.dart';
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
-  static const routeName = '/login';
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('مرحباً بك'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Login Screen',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            // Email Input
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(labelText: 'البريد الإلكتروني'),
             ),
-            SizedBox(height: 20),
+            // Password Input
+            TextField(
+              controller: passwordController,
+              decoration: InputDecoration(labelText: 'كلمة المرور'),
+              obscureText: true,
+            ),
+            // Remember Me Checkbox
+            Row(
+              children: [
+                Checkbox(value: false, onChanged: (value) {}),
+                Text('تذكرني'),
+              ],
+            ),
+            // "ليس لديك حساب؟" Text
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('ليس لديك حساب؟'),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF8CC63F), // Your desired color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30), // Rounded button
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => RegisterScreen()));
+                  },
+                  child: Text(
+                    'أنشئ حساب',
+                    style: TextStyle(color: Colors.white), 
+                  ),
+                ),
+              ],
+            ),
+            // Login Button
             ElevatedButton(
-              child: Text('Login'),
               onPressed: () {
-                // Perform login action
+                Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoadingScreen()));
               },
-            ),
-            SizedBox(height: 10),
-            TextButton(
-              child: Text('Create an account'),
-              onPressed: () {
-                // Navigate to signup screen
-                Navigator.pushNamed(context, SignupScreen.routeName);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SignupScreen extends StatelessWidget {
-  static const routeName = '/signup';
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Signup'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Signup Screen',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              child: Text('Signup'),
-              onPressed: () {
-                // Perform signup action
-              },
-            ),
-            SizedBox(height: 10),
-            TextButton(
-              child: Text('Already have an account? Login'),
-              onPressed: () {
-                // Navigate back to login screen
-                Navigator.pop(context);
-              },
+              child: Text('تسجيل الدخول'),
             ),
           ],
         ),
