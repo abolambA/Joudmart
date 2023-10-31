@@ -1,14 +1,18 @@
-  import 'package:flutter/material.dart';
+  // ignore: unused_import
   import 'package:joudmart/screens/arabic%20screens/intro_screen.dart';
-  // ignore: depend_on_referenced_packages
+  import 'package:joudmart/screens/arabic%20screens/login_screen.dart';
+  import 'firebase_options.dart';
+  import 'package:flutter/material.dart';
   import 'package:firebase_core/firebase_core.dart';
 
-  Future<void> main() async{ 
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-  runApp(joudmartApp());
-  }
 
+  void main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
+runApp(joudmartApp());
+}
   class joudmartApp extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
@@ -19,7 +23,7 @@
           primarySwatch: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: LoadingScreen(),
+        home: LoginScreen(),
       );
     }
   }
