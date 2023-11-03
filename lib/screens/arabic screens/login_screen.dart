@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:joudmart/screens/arabic%20screens/intro_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:joudmart/screens/arabic screens/register_screen.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatefulWidget {
