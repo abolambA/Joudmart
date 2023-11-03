@@ -1,5 +1,3 @@
-  // ignore: unused_import
-  import 'package:joudmart/screens/arabic%20screens/intro_screen.dart';
   import 'package:joudmart/screens/arabic%20screens/login_screen.dart';
   import 'firebase_options.dart';
   import 'package:flutter/material.dart';

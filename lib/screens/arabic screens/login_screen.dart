@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:joudmart/screens/arabic screens/register_screen.dart';
 import 'package:joudmart/screens/arabic%20screens/intro_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // ignore: must_be_immutable
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool missingField = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +30,19 @@ class LoginScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF2e3192), 
+                  color: Color(0xFF2e3192),
                 ),
               ),
             ),
           ),
           // Email Input
           TextField(
-            controller: emailController,
+            controller: widget.emailController,
             decoration: InputDecoration(labelText: 'البريد الإلكتروني'),
           ),
           // Password Input
           TextField(
-            controller: passwordController,
+            controller: widget.passwordController,
             decoration: InputDecoration(labelText: 'كلمة المرور'),
             obscureText: true,
           ),
@@ -53,14 +60,13 @@ class LoginScreen extends StatelessWidget {
               Text('ليس لديك حساب؟'),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF8CC63F), // Your desired color
+                  primary: Color(0xFF8CC63F),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // Rounded button
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RegisterScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
                 },
                 child: Text(
                   'أنشئ حساب',
@@ -69,14 +75,43 @@ class LoginScreen extends StatelessWidget {
               ),
             ],
           ),
-          // Login Button
+          // Login Button with validation
           ElevatedButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoadingScreen()));
+            onPressed: () async {
+              if (widget.emailController.text.isEmpty || widget.passwordController.text.isEmpty) {
+                setState(() {
+                  missingField = true;
+                });
+              } else {
+                try {
+                  setState(() {
+                    missingField = false;
+                  });
+                  UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: widget.emailController.text,
+                    password: widget.passwordController.text,
+                  );
+
+                  // Redirect to the loading screen or any other screen upon successful login
+                  if (userCredential.user != null) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoadingScreen()));
+                  }
+                } on FirebaseAuthException catch (e) {
+                  // Handle Firebase Authentication errors here (e.g., invalid credentials)
+                  print(e.message);
+                }
+              }
             },
             child: Text('تسجيل الدخول'),
+            style: ElevatedButton.styleFrom(
+              primary: missingField ? Colors.red : Color(0xFF8CC63F),
+            ),
           ),
+          if (missingField)
+            Text(
+              'الرجاء ملء جميع الحقول المطلوبة',
+              style: TextStyle(color: Colors.red),
+            ),
         ],
       ),
     );
