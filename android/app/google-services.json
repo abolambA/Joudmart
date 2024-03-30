@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "733816559464",
+    "project_id": "joud-mart",
+    "storage_bucket": "joud-mart.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733816559464:android:70470b35f939b7466aa8dd",
+        "android_client_info": {
+          "package_name": "com.example.joudmart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3PXMkki9m22x5QSjexBfXcvvZCCaBHLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

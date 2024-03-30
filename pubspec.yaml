@@ -1,0 +1,236 @@
+name: joudmart
+description: A new Flutter project.
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  video_player: ^2.3.4
+  flutter_lints: ^2.0.3
+  font_awesome_flutter: ^10.5.0
+  url_launcher: ^6.1.12
+  gradient_icon: ^2.0.0
+  shared_preferences: ^2.0.15
+  path_provider: ^2.0.10
+  sqflite: ^2.0.2+1
+  badges: ^3.1.2
+  provider: ^6.0.3
+  firebase_core: ^2.21.0
+  firebase_auth: ^4.12.1
+  cloud_firestore: ^4.12.2
+  video_player_web_hls: ^1.1.1
+
+
+
+dev_dependencies:
+  firebase_core_web: ^2.10.0
+  video_player_web: ^2.3.0
+  
+  flutter_test:
+    sdk: flutter
+
+
+# The "flutter_lints" package below contains a set of recommended lints to
+# encourage good coding practices. The lint set provided by the package is
+# activated in the `analysis_options.yaml` file located at the root of your
+# package. See that file for information about deactivating specific lint
+# rules and activating additional ones.
+flutter_lints: ^2.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  assets:
+    - assets/logo.png
+    - assets/cozmo.png
+    - assets/mbot-ranger.png
+    - assets/jimubot.png
+    - assets/astrobot.png
+    - assets/cozmo-collector.png
+    - assets/max-meccano.png
+    - assets/buzzbot.png
+    - assets/cozmo-bag.png
+    - assets/green grass 120ml.png
+    - assets/aragan oil.png
+    - assets/green-grass.png
+    - assets/zayt-hayya (1).png
+    - assets/zayt-hayee.png
+    - assets/super-snake-hair.png
+    - assets/cobra oil.png
+    - assets/black-seed-oil.png
+    - assets/ginger oil.png
+    - assets/saffi bilzangabeel.png
+    - assets/assal-saffi-2.png
+    - assets/assal-maa-algising.png
+    - assets/with habba-albaraka.png
+    - assets/assal-sidr-saffi.png
+    - assets/assal-belhabba-alsawdaa.png
+    - assets/assal-saffi.png
+    - assets/sidr-safi.png
+    - assets/assal-balhaba-alsawda.png
+    - assets/min-ghidda-almalikat.png
+    - assets/saffi-maa-habbatalbaraka.png
+    - assets/assal-saffi-125g.png
+    - assets/saffi-maa-zangabeel.png
+    - assets/assal-balhabba-alsawda.png
+    - assets/saffi-billginising.png
+    - assets/assal-tanheef.png
+    - assets/assal-saffi-1kg.png
+    - assets/speacial honey pack.png
+    - assets/green with rose.png
+    - assets/green-mint-lemon.png
+    - assets/mint-genger-green.png
+    - assets/mint-green.png
+    - assets/green-lemon.png
+    - assets/green-cinamon.png
+    - assets/green-honey.png
+    - assets/green-ginger.png
+    - assets/pure green.png
+    - assets/green-babonig.png
+    - assets/with mint.png
+    - assets/tea for whight losing with fruit mix.png
+    - assets/tea for whight losing with honey.png
+    - assets/tea for whight losing with green apple.png
+    - assets/whight losing tea.png
+    - assets/yanson-green-tea.png
+    - assets/Green-Tea-Cardamom.png
+    - assets/ginsing tea.png
+    - assets/green-yasmeen.png
+    - assets/miraculous-blackseed.png
+    - assets/aromatic-jasmine.png
+    - assets/refreshing-peppermint-rose-tea.png
+    - assets/exciting-hibiscus-karkadih.png
+    - assets/soothing-chamomile-babonig.png
+    - assets/Natural-Perfect-Diet-Tea-2.png
+    - assets/rose-cream.png
+    - assets/oud-cream.png
+    - assets/misk-cream.png
+    - assets/makhalat-cream.png
+    - assets/amber-cream.png
+    - assets/bakhoor-cream.png
+    - assets/misk_oudh.png
+    - assets/ambar_jamid.png
+    - assets/misk_arabia.png
+    - assets/jannat alfirdaws.png
+    - assets/misk_jamid.png
+    - assets/lucttuce oil.png
+    - assets/seet almond oil.png
+    - assets/alhilba-oil.png
+    - assets/ginger-oil.png
+    - assets/garlic oil .png
+    - assets/albanafsaj oil.png
+    - assets/grapes seed oil.png
+    - assets/linseed oil.png
+    - assets/cinamon oil.png
+    - assets/nettle oil.png
+    - assets/castor oil.png
+    - assets/horsetail oil.png
+    - assets/cucumber oil.png
+    - assets/almahlab oil.png
+    - assets/ginger oil 30ml.png
+    - assets/simsim oil.png
+    - assets/mastic oil.png
+    - assets/rice bran oil.png
+    - assets/shea-butter-oil.png
+    - assets/hibiscus oil.png
+    - assets/vanilla oil.png
+    - assets/lavandar oil.png
+    - assets/henna oil.png
+    - assets/luttece-oil.png
+    - assets/blue chamomile oil.png
+    - assets/harmal oil.png
+    - assets/ajwain oil.png
+    - assets/facewash olive.png
+    - assets/facewash nim.png
+    - assets/facewash lemon.png
+    - assets/facewash mud.png
+    - assets/facewash cactus.png
+    - assets/facewash cucumber.png
+    - assets/facewash milk honey.png
+    - assets/facewash blackseed.png
+    - assets/facewash pro.png
+    - assets/facescrub appricot.png
+    - assets/facescrub almond.png
+    - assets/facescrub smooth fruit.png
+    - assets/facescrub cactus.png
+    - assets/facescrub herbs.png
+    - assets/facescrub blackseed.png
+    - assets/facescrub aragan.png
+    - assets/facescrub macadamia.png
+    - assets/almajlis oud.png
+    - assets/bint alqamar.png
+    - assets/bint alsharq.png
+    - assets/alwajahaa oud.png
+    - assets/almatheem oud.png
+    - assets/alfawwah oud.png
+    - assets/alaseela oud.png
+    - assets/alabbaha oud.png
+    - assets/ahlan oud.png
+    - assets/amirat alsharq.png
+    - assets/hanadi bakhoor.png
+    - assets/hala bakhoor.png
+    - assets/dana bakhoor.png
+    - assets/hanadi bakhoor.png
+    - assets/tameem bakhoor.png
+    - assets/kings bakhoor.png
+    - assets/emirates bakhoor.png
+    - assets/areej bakhoor.png
+    - assets/mud soap.png
+    - assets/face soap.png
+    - assets/young soap.png
+    - assets/pome soap.png
+    - assets/cucu soap.png
+    - assets/snake soap.png
+    - assets/milk and honey soap.png
+    - assets/elbaraka soap.png
+    - assets/babaya soap.png
+    - assets/stress soap.png
+    - assets/lavender soap.png
+    - assets/kurkum soap.png
+    - assets/sulphur soap.png
+    - assets/calt soap.png
+    - assets/honey soap.png
+    - assets/saffron soap.png
+    - assets/cucu and cactus soap.png
+    - assets/babaya and soap.png
+    - assets/aragan soap.png
+    - assets/2 in 1 shampoo.png
+    - assets/anti-dandruff 2 in 1.png
+    - assets/stress shampoo 2 in 1.png
+    - assets/natural feed 2 in 1 shampoo.png
+    - assets/smooth shampoo.png
+    - assets/hijab shampoo.png
+    - assets/intro_video_aljoud.mp4
+    - assets/empty_cart_image.png
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
