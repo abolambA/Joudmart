@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 child: Text('تسجيل الدخول'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: missingField ? Colors.red : Color(0xFF8CC63F),
+                  backgroundColor: missingField ? Color(0xFF8CC63F) : Color(0xFF8CC63F),
                 ),
               ),
               if (errorMessage.isNotEmpty)
