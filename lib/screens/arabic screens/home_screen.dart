@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:joudmart/screens/arabic%20screens/about%20us.dart';
 import 'package:joudmart/screens/arabic%20screens/cart_screen.dart';
 import 'package:joudmart/screens/arabic%20screens/product_screen.dart';
+import 'package:joudmart/screens/arabic%20screens/profile%20screen.dart';
 import 'package:joudmart/screens/arabic%20screens/section1.dart';
 import 'package:joudmart/screens/arabic%20screens/section10.dart';
 import 'package:joudmart/screens/arabic%20screens/section11.dart';
@@ -249,6 +250,25 @@ class HomeScreen extends StatelessWidget {
                 );
               },
             ),
+            ListTile(
+  title: const Text(
+    'حسابي ',
+    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+  ),
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfileScreen(
+          name: 'nameController.text',
+          email: 'emailController.text',
+          phone: 'phoneController.text',
+        ),
+      ),
+    );
+  },
+),
+
             Align(
     alignment: Alignment.bottomLeft,
     child: ListTile(

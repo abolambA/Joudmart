@@ -1,24 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:joudmart/screens/arabic%20screens/profile%20screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:joudmart/screens/arabic%20screens/intro_screen.dart';
 import 'package:joudmart/screens/arabic%20screens/login_screen.dart';
 
-// ignore: must_be_immutable
 class RegisterScreen extends StatefulWidget {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   bool missingField = false;
-  bool rememberMe = false;
+
+  void _registerUser() async {
+    if (nameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        phoneController.text.isEmpty ||
+        passwordController.text.isEmpty) {
+      setState(() {
+        missingField = true;
+      });
+    } else {
+      try {
+        setState(() {
+          missingField = false;
+        });
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+        if (userCredential.user != null) {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userCredential.user!.uid)
+              .set({
+            'name': nameController.text,
+            'email': emailController.text,
+            'phone': phoneController.text,
+          });
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('name', nameController.text);
+          await prefs.setString('email', emailController.text);
+          await prefs.setString('phone', phoneController.text);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileScreen(
+                name: nameController.text,
+                email: emailController.text,
+                phone: phoneController.text,
+              ),
+            ),
+          );
+        }
+      } on FirebaseAuthException catch (e) {
+        print(e.message);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,87 +92,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               // Name Input
               TextField(
-                controller: widget.nameController,
+                controller: nameController,
                 decoration: InputDecoration(
                   labelText: 'الاسم',
                 ),
               ),
               // Email Input
               TextField(
-                controller: widget.emailController,
+                controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'البريد الإلكتروني',
                 ),
               ),
               // Phone Input
               TextField(
-                controller: widget.phoneController,
+                controller: phoneController,
                 decoration: InputDecoration(
                   labelText: 'رقم الهاتف',
                 ),
               ),
               // Password Input
               TextField(
-                controller: widget.passwordController,
+                controller: passwordController,
                 decoration: InputDecoration(
                   labelText: 'كلمة المرور',
                 ),
                 obscureText: true,
               ),
-              // Remember Me Checkbox
-              Row(
-                children: [
-                  Checkbox(
-                    value: rememberMe,
-                    onChanged: (value) {
-                      setState(() {
-                        rememberMe = value!;
-                      });
-                    },
-                  ),
-                  Text(
-                    'تذكرني',
-                    style: TextStyle(
-                      color: Color(0xFF8CC63F),
-                    ),
-                  ),
-                ],
-              ),
               SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () async {
-                  if (widget.nameController.text.isEmpty ||
-                      widget.emailController.text.isEmpty ||
-                      widget.phoneController.text.isEmpty ||
-                      widget.passwordController.text.isEmpty) {
-                    setState(() {
-                      missingField = true;
-                    });
-                  } else {
-                    try {
-                      setState(() {
-                        missingField = false;
-                      });
-                      UserCredential? userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                        email: widget.emailController.text,
-                        password: widget.passwordController.text,
-                      );
-                      if (userCredential.user != null) {
-                        await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
-                          'name': widget.nameController.text,
-                          'email': widget.emailController.text,
-                          'phone': widget.phoneController.text,
-                        });
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        await prefs.setString('email', widget.emailController.text);
-                        await prefs.setString('password', widget.passwordController.text);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoadingScreen()));
-                      }
-                    } on FirebaseAuthException catch (e) {
-                      print(e.message);
-                    }
-                  }
-                },
+                onPressed: _registerUser,
                 child: Text(
                   'أنشئ حساب',
                   style: TextStyle(
@@ -134,7 +129,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: missingField ? Color(0xFF8CC63F) : Color(0xFF8CC63F),
+                  backgroundColor:
+                      missingField ? Color(0xFF8CC63F) : Color(0xFF8CC63F),
                 ),
               ),
               if (missingField)
