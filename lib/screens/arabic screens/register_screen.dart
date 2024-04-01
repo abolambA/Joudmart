@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:joudmart/screens/arabic%20screens/profile%20screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:joudmart/screens/arabic%20screens/login_screen.dart';
+import 'package:joudmart/screens/arabic%20screens/home_screen.dart'; // Import HomeScreen
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -17,6 +17,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController passwordController = TextEditingController();
 
   bool missingField = false;
+  String errorMessage = '';
 
   void _registerUser() async {
     if (nameController.text.isEmpty ||
@@ -25,11 +26,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         passwordController.text.isEmpty) {
       setState(() {
         missingField = true;
+        errorMessage = 'الرجاء ملء جميع الحقول المطلوبة';
       });
     } else {
       try {
         setState(() {
           missingField = false;
+          errorMessage = '';
         });
         UserCredential userCredential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -49,19 +52,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
           await prefs.setString('name', nameController.text);
           await prefs.setString('email', emailController.text);
           await prefs.setString('phone', phoneController.text);
+          // Navigate to HomeScreen after successful registration
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => ProfileScreen(
-                name: nameController.text,
-                email: emailController.text,
-                phone: phoneController.text,
-              ),
+              builder: (context) => HomeScreen(),
             ),
           );
         }
       } on FirebaseAuthException catch (e) {
         print(e.message);
+        setState(() {
+          errorMessage = 'عفواً, يبدو انه هنالك مشكلة في المعلومات المدخلة';
+        });
       }
     }
   }
@@ -135,7 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               if (missingField)
                 Text(
-                  'الرجاء ملء جميع الحقول المطلوبة',
+                  errorMessage,
                   style: TextStyle(
                     color: Colors.red,
                   ),

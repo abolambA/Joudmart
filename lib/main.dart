@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:joudmart/screens/arabic%20screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:joudmart/screens/arabic%20screens/login_screen.dart';
 import 'firebase_options.dart';
 
   Future<void> main() async {
@@ -20,7 +20,7 @@ runApp(joudmartApp());
           primarySwatch: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: HomeScreen(),
+        home: LoginScreen(),
       );
     }
   }
