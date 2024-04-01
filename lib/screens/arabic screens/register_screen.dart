@@ -5,6 +5,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:joudmart/screens/arabic%20screens/login_screen.dart';
 import 'package:joudmart/screens/arabic%20screens/home_screen.dart'; // Import HomeScreen
 
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Your App Name',
+      theme: ThemeData(
+        // Your app's theme
+      ),
+      home: RegisterScreen(),
+    );
+  }
+}
+
 class RegisterScreen extends StatefulWidget {
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
