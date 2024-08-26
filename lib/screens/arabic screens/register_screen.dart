@@ -14,9 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Your App Name',
       theme: ThemeData(
-        // Your app's theme
       ),
       home: RegisterScreen(),
     );

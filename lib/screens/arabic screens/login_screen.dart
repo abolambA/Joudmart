@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:joudmart/firebase_auth_implements/firebase_auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:joudmart/screens/arabic%20screens/register_screen.dart';
 import 'package:joudmart/screens/arabic%20screens/home_screen.dart'; // Import HomeScreen
@@ -12,15 +13,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final FirebaseAuthService _auth = FirebaseAuthService();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
-  bool missingField = false;
-  bool rememberMe = false;
+  bool missingField = true;
+  bool rememberMe = true;
   String errorMessage = '';
 
   Future<void> _loginUser() async {
-    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       setState(() {
         missingField = true;
         errorMessage = 'الرجاء ملء جميع الحقول المطلوبة';
@@ -33,14 +35,14 @@ class _LoginScreenState extends State<LoginScreen> {
         });
         UserCredential userCredential =
             await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
+          email: _emailController.text,
+          password: _passwordController.text,
         );
 
         if (userCredential.user != null) {
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString('email', emailController.text);
-          await prefs.setString('password', passwordController.text);
+          await prefs.setString('email', _emailController.text);
+          await prefs.setString('password', _passwordController.text);
           Navigator.pushReplacement(
             // ignore: use_build_context_synchronously
             context,
@@ -92,13 +94,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               TextField(
-                controller: emailController,
+                controller: _emailController,
                 decoration: const InputDecoration(
                   labelText: 'البريد الإلكتروني',
                 ),
               ),
               TextField(
-                controller: passwordController,
+                controller: _passwordController,
                 decoration: const InputDecoration(
                   labelText: 'كلمة المرور',
                 ),
@@ -119,7 +121,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: _loginUser,
+                onPressed: () {
+    _signIn(); // Call the _signup function
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+    );
+  },
                 child: Text('تسجيل الدخول'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: missingField
@@ -164,5 +172,26 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+  void _signIn() async{
+
+    // ignore: unused_local_variable
+    String email = _emailController.text;
+    // ignore: unused_local_variable
+    String password = _passwordController.text;
+
+    // ignore: unused_local_variable
+    User? user = await _auth.signInWithEmailAndPassword(email,password);
+
+    
+    // ignore: unnecessary_null_comparison
+    if (user != null){
+
+      print("User is successfully created"); 
+      Navigator.pushNamed(context, "/home");
+    } else {
+      print("Some error happened");
+    }
+    
   }
 }
