@@ -73,11 +73,11 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Align(
+              const Align(
                 alignment: Alignment.topCenter,
                 child: Padding(
                   padding: EdgeInsets.all(16.0),
@@ -93,13 +93,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               TextField(
                 controller: emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'البريد الإلكتروني',
                 ),
               ),
               TextField(
                 controller: passwordController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'كلمة المرور',
                 ),
                 obscureText: true,
@@ -117,14 +117,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text('تذكرني'),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _loginUser,
                 child: Text('تسجيل الدخول'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: missingField
-                      ? Color(0xFF8CC63F)
-                      : Color(0xFF8CC63F),
+                      ? const Color(0xFF8CC63F)
+                      : const Color(0xFF8CC63F),
                 ),
               ),
               if (errorMessage.isNotEmpty)
@@ -132,18 +132,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
                     errorMessage,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
                 ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('ليس لديك حساب؟'),
-                  SizedBox(width: 8),
+                  const Text('ليس لديك حساب؟'),
+                  const SizedBox(width: 8),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF8CC63F),
+                      backgroundColor: const Color(0xFF8CC63F),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -154,11 +154,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         MaterialPageRoute(builder: (context) => RegisterScreen()),
                       );
                     },
-                    child: Text('أنشئ حساب'),
+                    child: const Text('أنشئ حساب'),
                   ),
                 ],
               ),
-              SizedBox(height: 16), // Add SizedBox for spacing
+              const SizedBox(height: 16), // Add SizedBox for spacing
             ],
           ),
         ),
