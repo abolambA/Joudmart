@@ -4,8 +4,10 @@ import 'package:joudmart/screens/arabic%20screens/register_screen.dart';
 import 'package:joudmart/screens/arabic%20screens/home_screen.dart'; // Import HomeScreen
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: use_key_in_widget_constructors
 class LoginScreen extends StatefulWidget {
   @override
+  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 
@@ -40,6 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
           await prefs.setString('email', emailController.text);
           await prefs.setString('password', passwordController.text);
           Navigator.pushReplacement(
+            // ignore: use_build_context_synchronously
             context,
             MaterialPageRoute(builder: (context) => HomeScreen()), // Navigate to HomeScreen
           );
@@ -64,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Theme(
         data: Theme.of(context).copyWith(
-          textTheme: TextTheme(
+          textTheme: const TextTheme(
             bodyText1: TextStyle(color: Color(0xFF8CC63F)),
             bodyText2: TextStyle(color: Color(0xFF8CC63F)),
           ),
