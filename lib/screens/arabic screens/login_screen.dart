@@ -1,36 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:joudmart/firebase_auth_implements/firebase_auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:joudmart/screens/arabic%20screens/register_screen.dart';
-import 'package:joudmart/screens/arabic%20screens/home_screen.dart'; // Import HomeScreen
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:joudmart/screens/arabic%20screens/register_screen.dart';
+import 'package:joudmart/screens/arabic%20screens/home_screen.dart';
 
-// ignore: use_key_in_widget_constructors
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Check if user is already logged in
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? email = prefs.getString('email');
+  String? password = prefs.getString('password');
+
+  runApp(MyApp(email: email, password: password));
+}
+
+class MyApp extends StatelessWidget {
+  final String? email;
+  final String? password;
+
+  MyApp({this.email, this.password});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Your App Name',
+      home: email != null && password != null
+          ? HomeScreen() // Automatically go to HomeScreen if logged in
+          : LoginScreen(),
+    );
+  }
+}
+
 class LoginScreen extends StatefulWidget {
   @override
-  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final FirebaseAuthService _auth = FirebaseAuthService();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  bool missingField = true;
   bool rememberMe = true;
   String errorMessage = '';
 
   Future<void> _loginUser() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       setState(() {
-        missingField = true;
         errorMessage = 'الرجاء ملء جميع الحقول المطلوبة';
       });
     } else {
       try {
         setState(() {
-          missingField = false;
           errorMessage = '';
         });
         UserCredential userCredential =
@@ -40,13 +61,15 @@ class _LoginScreenState extends State<LoginScreen> {
         );
 
         if (userCredential.user != null) {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString('email', _emailController.text);
-          await prefs.setString('password', _passwordController.text);
+          if (rememberMe) {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString('email', _emailController.text);
+            await prefs.setString('password', _passwordController.text);
+          }
+
           Navigator.pushReplacement(
-            // ignore: use_build_context_synchronously
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()), // Navigate to HomeScreen
+            MaterialPageRoute(builder: (context) => HomeScreen()),
           );
         } else {
           setState(() {
@@ -121,18 +144,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {
-    _signIn(); // Call the _signup function
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
-    );
-  },
-                child: Text('تسجيل الدخول'),
+                onPressed: _loginUser,
+                child: const Text('تسجيل الدخول'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: missingField
-                      ? const Color(0xFF8CC63F)
-                      : const Color(0xFF8CC63F),
+                  backgroundColor: const Color(0xFF8CC63F),
                 ),
               ),
               if (errorMessage.isNotEmpty)
@@ -166,32 +181,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16), // Add SizedBox for spacing
+              const SizedBox(height: 16),
             ],
           ),
         ),
       ),
     );
-  }
-  void _signIn() async{
-
-    // ignore: unused_local_variable
-    String email = _emailController.text;
-    // ignore: unused_local_variable
-    String password = _passwordController.text;
-
-    // ignore: unused_local_variable
-    User? user = await _auth.signInWithEmailAndPassword(email,password);
-
-    
-    // ignore: unnecessary_null_comparison
-    if (user != null){
-
-      print("User is successfully created"); 
-      Navigator.pushNamed(context, "/home");
-    } else {
-      print("Some error happened");
-    }
-    
   }
 }
