@@ -6,7 +6,7 @@ class FirebaseAuthService{
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   // ignore: body_might_complete_normally_nullable
-  Future<User?> signupWithEmailAndPassword(String email,String password) async{
+  Future<User?> signupWithEmailAndPassword(String username,String email,String password) async{
 
     try {
 

@@ -27,14 +27,13 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  
   final FirebaseAuthService _auth = FirebaseAuthService();
-  
+
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-
+  bool _obscurePassword = true;
   bool missingField = false;
   String errorMessage = '';
 
@@ -67,11 +66,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             'password': _passwordController.text,
           });
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString('name', _usernameController.text);
+          await prefs.setString('username', _usernameController.text);
           await prefs.setString('email', _emailController.text);
           await prefs.setString('password', _passwordController.text);
           // Navigate to HomeScreen after successful registration
-          Navigator.pushReplacement;
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+          );
         }
       } on FirebaseAuthException catch (e) {
         print(e.message);
@@ -118,37 +120,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: _emailController,
                 decoration: const InputDecoration(
                   labelText: 'البريد الإلكتروني',
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF8CC63F)),
+                  ),
                 ),
               ),
               // Password Input
               TextField(
                 controller: _passwordController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'كلمة المرور',
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF8CC63F)),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Color(0xFF2e3192),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  ),
                 ),
-                obscureText: true,
+                obscureText: _obscurePassword,
               ),
               SizedBox(height: 16),
               ElevatedButton(
-  onPressed: () {
-    _signup(); // Call the _signup function
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
-    );
-  },
-  child: const Text(
-    'أنشئ حساب',
-    style: TextStyle(
-      color: Color(0xFF2e3192),
-    ),
-  ),
-  style: ElevatedButton.styleFrom(
-    backgroundColor:
-        missingField ? const Color(0xFF8CC63F) : const Color(0xFF8CC63F),
-  ),
-),
-
+                onPressed: () {
+                  _signup(); // Call the _signup function
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                  );
+                },
+                child: const Text(
+                  'أنشئ حساب',
+                  style: TextStyle(
+                    color: Color(0xFF2e3192),
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      missingField ? const Color(0xFF8CC63F) : const Color(0xFF8CC63F),
+                ),
+              ),
               if (missingField)
                 Text(
                   errorMessage,
@@ -186,27 +206,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void _signup() async{
-
-    // ignore: unused_local_variable
+  void _signup() async {
     String username = _usernameController.text;
-    // ignore: unused_local_variable
     String email = _emailController.text;
-    // ignore: unused_local_variable
     String password = _passwordController.text;
 
-    // ignore: unused_local_variable
-    User? user = await _auth.signupWithEmailAndPassword(email, password);
+    User? user = await _auth.signupWithEmailAndPassword(username,email, password);
 
-    
-    if (user != null){
-
-      print("User is successfully created"); 
+    if (user != null) {
+      print("");
       Navigator.pushNamed(context, "/home");
     } else {
-      print("Some error happened");
+      print("");
     }
-    
   }
-
 }
