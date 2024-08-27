@@ -309,7 +309,6 @@ class HomeScreen extends StatelessWidget {
             );
           },
         ),
-        title: Text('joudmart'),
         backgroundColor: Colors.white,
         actions: [
           IconButton(
@@ -349,10 +348,7 @@ class HomeScreen extends StatelessWidget {
                         hintText: 'Search',
                         suffixIcon: IconButton(
                           icon: Icon(Icons.search),
-                          onPressed: () {
-                           showSearch(context: context, 
-                           delegate: CustomSearchDelegate(),);
-                          },
+                          onPressed: () {},
                         ),
                       ),
                     ),
@@ -462,77 +458,3 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class CustomSearchDelegate extends SearchDelegate {
-  List<String> searchTerms = [
-'جديدنا🤖',
-    'الزيوت الطبيعية للشعر',
-    'منتجات العسل الطبيعي 🍯',
-    ' منتجات الشاي والأعشاب الطبيعية 🍵',
-    'كريمات عبق المشرق الفاخرة ✨',
-    'احجار المسك الجامدة المعطرة 🌹',
-    'زيوت الطبيعة 🌿',
-    'غسولات الوجه',
-    'مقشرات الوجه',
-    'الدخون والبخور والعود المعطر',
-    'صابون الطبيعة🪴',
-    'شامبو بخلاصة الطبيعة',
-  ];
-  @override
-  List<Widget> buildActions(BuildContext context ) {
-    return [
-      IconButton( icon: const Icon(Icons.clear),
-       onPressed: (){
-        query = '';
-       },
-      ),
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.arrow_back),
-      onPressed: (){
-        close(context, null);
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var section in searchTerms){
-      if (section.toLowerCase().contains(query.toLowerCase())){
-        matchQuery.add(section);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index){
-        var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-        );
-      },
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var section in searchTerms){
-      if (section.toLowerCase().contains(query.toLowerCase())){
-        matchQuery.add(section);
-      }
-  }
-  return ListView.builder(
-    itemCount: matchQuery.length,
-    itemBuilder: (context, index){
-      var result = matchQuery[index];
-      return ListTile(
-        title: Text(result),
-      );
-    },
-  );
-}
-}
