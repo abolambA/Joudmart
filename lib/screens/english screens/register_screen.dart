@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:joudmart/firebase_auth_implements/firebase_auth_services.dart';
-import 'package:joudmart/screens/english%20screens/register_screen.dart';
+import 'package:joudmart/screens/arabic%20screens/register_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class RegisterScreen extends StatefulWidget {
+class EngRegisterScreen extends StatefulWidget {
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -214,7 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => EngRegisterScreen()),
+                  MaterialPageRoute(builder: (context) => RegisterScreen()),
                 );
               },
               child: Container(
@@ -232,7 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     SizedBox(width: 4),
                     Text(
-                      'EN',
+                      'AR',
                       style: TextStyle(
                         color: Color(0xFF8CC63F),
                       ),
