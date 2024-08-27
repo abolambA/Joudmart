@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Your App Name',
       home: email != null && password != null
           ? HomeScreen() // Automatically go to HomeScreen if logged in
           : LoginScreen(),
