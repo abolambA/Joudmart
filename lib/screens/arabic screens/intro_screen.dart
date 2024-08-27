@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:joudmart/screens/arabic%20screens/home_screen.dart';
+import 'package:joudmart/screens/arabic%20screens/login_screen.dart';
 import 'package:video_player/video_player.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     _controller.addListener(() {
       if (_controller.value.position == _controller.value.duration) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
       }
     });
   }
