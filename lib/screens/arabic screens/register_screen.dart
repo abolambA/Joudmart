@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:joudmart/firebase_auth_implements/firebase_auth_services.dart';
-import 'package:joudmart/screens/english%20screens/register_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -207,41 +206,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
           // Language Switcher
-          Positioned(
-            top: 16,
-            left: 16,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => EngRegisterScreen()),
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Color(0xFF8CC63F)),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.language,
-                      color: Color(0xFF8CC63F),
-                    ),
-                    SizedBox(width: 4),
-                    Text(
-                      'EN',
-                      style: TextStyle(
-                        color: Color(0xFF8CC63F),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
