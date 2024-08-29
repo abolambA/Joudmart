@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:joudmart/screens/arabic%20screens/home_screen.dart';
 import 'package:joudmart/screens/english%20screens/about%20us.dart';
@@ -16,6 +17,7 @@ import 'package:joudmart/screens/english%20screens/section8.dart';
 import 'package:joudmart/screens/english%20screens/section9.dart';
 import 'package:joudmart/widgets/Products%20english.dart';
 import 'package:joudmart/widgets/added.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //ignore: must_be_immutable
 class engHomeScreen extends StatelessWidget {
@@ -299,7 +301,6 @@ class engHomeScreen extends StatelessWidget {
              );
            },
          ),
-         title: Text('joudmart'),
          backgroundColor: Colors.white,
          actions: [
            IconButton(
@@ -441,9 +442,50 @@ class engHomeScreen extends StatelessWidget {
                   SizedBox(height: 40),
                 ],
               ),
-            SizedBox(
-              height: 100,
-            )
+            SizedBox(height: 100,),
+          Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.copyright, size: 18),
+                        SizedBox(width: 4),
+                        Text(
+                          '2024-2025 | Joudmart',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Application Created By ',
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Nihad Alsoufi',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                              color: Colors.blue,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launchUrl(Uri.parse('https://nihad-alsoufi.web.app'));
+                              },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

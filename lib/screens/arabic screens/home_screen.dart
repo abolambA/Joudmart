@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart'; // Add this import for URL launching
 import 'package:joudmart/screens/arabic%20screens/about%20us.dart';
 import 'package:joudmart/screens/arabic%20screens/cart_screen.dart';
 import 'package:joudmart/screens/arabic%20screens/product_screen.dart';
@@ -24,7 +26,7 @@ class HomeScreen extends StatelessWidget {
     'جديدنا🤖',
     'الزيوت الطبيعية للشعر',
     'منتجات العسل الطبيعي 🍯',
-    ' منتجات الشاي والأعشاب الطبيعية 🍵',
+    'منتجات الشاي والأعشاب الطبيعية 🍵',
     'كريمات عبق المشرق الفاخرة ✨',
     'احجار المسك الجامدة المعطرة 🌹',
     'زيوت الطبيعة 🌿',
@@ -34,18 +36,14 @@ class HomeScreen extends StatelessWidget {
     'صابون الطبيعة🪴',
     'شامبو بخلاصة الطبيعة',
   ];
-    String searchKeyword = "";
 
+  String searchKeyword = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
@@ -112,7 +110,7 @@ class HomeScreen extends StatelessWidget {
             ),
             ListTile(
               title: const Text(
-                ' منتجات الشاي والأعشاب الطبيعية 🍵',
+                'منتجات الشاي والأعشاب الطبيعية 🍵',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               ),
               onTap: () {
@@ -251,46 +249,45 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             ListTile(
-  title: const Text(
-    'حسابي ',
-    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-  ),
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ProfileScreen(
-          name: 'usernameController.text',
-          email: 'emailController.text',
-          phone: 'passwordController.text',
-        ),
-      ),
-    );
-  },
-),
-
+              title: const Text(
+                'حسابي ',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(
+                      name: 'usernameController.text',
+                      email: 'emailController.text',
+                      phone: 'passwordController.text',
+                    ),
+                  ),
+                );
+              },
+            ),
             Align(
-    alignment: Alignment.bottomLeft,
-    child: ListTile(
-      title: Row(
-        children: [
-          Text(
-            'EN🇬🇧',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          ),
-          SizedBox(width: 8), 
-        ],
-      ),
-      onTap: () {
-        Navigator.push(
-                     context,
-                     MaterialPageRoute(
-                       builder: (context) =>  engHomeScreen(),
-                     ),
-                   );
-      },
-    ),
-  ),
+              alignment: Alignment.bottomLeft,
+              child: ListTile(
+                title: Row(
+                  children: [
+                    Text(
+                      'EN🇬🇧',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    SizedBox(width: 8),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => engHomeScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -315,13 +312,13 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.shopping_cart),
             color: Colors.deepPurple,
             onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>  CartScreen(),  
-                    ),
-                  );
-                },
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartScreen(),
+                ),
+              );
+            },
           ),
           IconButton(
             icon: Icon(Icons.favorite),
@@ -356,16 +353,14 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            for (int sectionIndex = 0;
-                sectionIndex < sections.length;
-                sectionIndex++)
+            for (int sectionIndex = 0; sectionIndex < sections.length; sectionIndex++)
               Column(
                 children: [
                   Container(
-                    alignment: Alignment.center, // Align the text to the center
+                    alignment: Alignment.center,
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      sectionNames[sectionIndex], // Display the section name
+                      sectionNames[sectionIndex],
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -376,81 +371,117 @@ class HomeScreen extends StatelessWidget {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.center, // Center the products
-                      children: sections[sectionIndex]
-                          .map(
-                            (product) => GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductScreen(product: product)),
-                                );
-                                // Open product description screen or perform related actions
-                              },
-                              child: Container(
-                                width: 200,
-                                margin: EdgeInsets.symmetric(horizontal: 8),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 180,
-                                      height: 180,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          image: AssetImage(product.imageUrl),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: sections[sectionIndex].map(
+                        (product) => GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductScreen(product: product),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 200,
+                            margin: EdgeInsets.symmetric(horizontal: 8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 180,
+                                  height: 180,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      image: AssetImage(product.imageUrl),
+                                      fit: BoxFit.cover,
                                     ),
-                                    SizedBox(height: 5),
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  product.name,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
                                     Text(
-                                      product.name,
+                                      'AED ${product.discountPrice.toStringAsFixed(2)}',
                                       style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    const SizedBox(height: 5),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'AED ${product.discountPrice.toStringAsFixed(2)}',
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          'AED ${product.price.toStringAsFixed(2)}',
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            decoration:
-                                                TextDecoration.lineThrough,
-                                          ),
-                                        ),
-                                      ],
-                                    )
+                                    Text(
+                                      'AED ${product.price.toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        decoration: TextDecoration.lineThrough,
+                                      ),
+                                    ),
                                   ],
                                 ),
-                              ),
+                              ],
                             ),
-                          )
-                          .toList(),
+                          ),
+                        ),
+                      ).toList(),
                     ),
                   ),
                   SizedBox(height: 40),
                 ],
               ),
-            SizedBox(
-              height: 100,
-            )
+            SizedBox(height: 100),
+            // Add the copyright section here
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.copyright, size: 18),
+                        SizedBox(width: 4),
+                        Text(
+                          '2024-2025 | Joudmart',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    RichText(
+                      text: TextSpan(
+                        text: 'تم إنشاء التطبيق بواسطة ',
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'نهاد الصوفي',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                              color: Colors.blue,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launchUrl(Uri.parse('https://nihad-alsoufi.web.app'));
+                              },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
