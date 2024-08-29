@@ -439,47 +439,51 @@ class HomeScreen extends StatelessWidget {
               ),
             SizedBox(height: 100),
             // Add the copyright section here
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.copyright, size: 18),
-                        SizedBox(width: 4),
-                        Text(
-                          '2024-2025 | Joudmart',
-                          style: TextStyle(fontSize: 14),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.copyright, size: 18),
+                      SizedBox(width: 4),
+                      Text(
+                        '2024-2025 | جود مارت',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold, // Make text bold
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      text: 'تم إنشاء التطبيق بواسطة ',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'نهاد الصوفي',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launchUrl(Uri.parse('https://nihad-alsoufi.web.app'));
+                            },
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
-                    RichText(
-                      text: TextSpan(
-                        text: 'تم إنشاء التطبيق بواسطة ',
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'نهاد الصوفي',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
-                              color: Colors.blue,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launchUrl(Uri.parse('https://nihad-alsoufi.web.app'));
-                              },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -488,4 +492,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
