@@ -258,9 +258,9 @@ class HomeScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ProfileScreen(
-                      name: 'usernameController.text',
-                      email: 'emailController.text',
-                      phone: 'passwordController.text',
+                      name: '',
+                      email: '',
+                      phone: '',
                     ),
                   ),
                 );
@@ -490,5 +490,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+
+    
   }
 }
