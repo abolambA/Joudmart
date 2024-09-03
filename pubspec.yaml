@@ -45,6 +45,7 @@ dependencies:
   firebase_auth: ^4.12.1
   cloud_firestore: ^4.12.2
   video_player_web_hls: ^1.1.1
+  flutter_native_splash: ^2.4.1
 
 
 
